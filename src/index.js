@@ -6,42 +6,51 @@ import ReactDom from 'react-dom';
 //css 
 import './index.css';
 const books = [
-{
+{id:1,
     Image: "https://images-na.ssl-images-amazon.com/images/I/91JV0+3BRGL._AC_UL160_SR160,160_.jpg ",
     Title: 'DUNE : AUDIOBOOK',
     Author: 'Frank Herbert'
 },
-{
+{id:2,
     Image: "https://images-na.ssl-images-amazon.com/images/I/81PNeyIYVfL._AC_UL160_SR160,160_.jpg",
     Title: 'Greenlights',
     Author: 'Matthew McConaughey'
 }
+,
+{ id:3,
+    Image: "https://images-na.ssl-images-amazon.com/images/I/81X+TLMA8oL._AC_UL160_SR160,160_.jpg",
+    Title: 'The Sandman : Act II',
+    Author: 'Neil Gaiman'
+}
 ];
 function BookList() {
     return ( < section className = "booklist" >
-        {/* to access objects in array books i need map  */}
         {books.map((book) => {
-            return 'Hello';
-        })}
+            return <Book key={book.id} {...book}></Book> 
+         })}
         </section>
     );
 }
-//option 3 for properties(my choice)
-const Book = ({ Image, Title, Author, children }) => {
-    //option 1 cons        ole.log(props)
-    //option 2 const {Image,Title,Author} = props
-    return <article className = 'book' >
-        <img src = { Image }
-    alt = "" />
-        <h1> { Title } </h1> 
+const Book = ({Image,Title,Author}) => {
+    // Events(Attribute,EventHandler)
+    //onClick,onMouserOver
+    const clickHandler = () =>{
+        alert ('Hello World');
+    }
+    const compleExample = (Author)=>{
+       alert(Author);
+
+    }
+       return (<article className = 'book' onMouseOver={()=>{
+         console.log(Title)
+       }} >
+        <img src = { Image }alt = "" />
+        <h1 onClick={() => console.log(Title)}> { Title } </h1> 
         <h4 > { Author } </h4>
+        <button type="button" onClick={clickHandler}>Reference Example</button>
+        <button type="button" onClick={()=>compleExample(Author)}>complex Example</button>
+        </article>
+    )};
 
-
-    </article>
-
-};
-// const Image = () => 
-// const Title = () => 
-// const Author = () => 
 //renders a function Greeting to div.root on index.html
-ReactDom.render( < BookList / > , document.getElementById('root'));
+ReactDom.render( < BookList/> , document.getElementById('root'));
